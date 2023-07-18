@@ -76,7 +76,7 @@ This project is licensed under the MIT License. See LICENSE for more information
 
    Replace `<container_id>` with the ID or name of the running container. You can find the container ID by running `docker ps`.
 
-## Troubleshooting
+## 📖 Troubleshooting
 
 - If you encounter any issues during the build or run process, make sure you have Docker properly installed and running on your system.
 
