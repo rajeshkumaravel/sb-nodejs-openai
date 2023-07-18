@@ -114,7 +114,7 @@ The following API endpoints are available:
 | --- | --- | --- |
 | POST | /api/ask | To query with OpenAI |
 | POST | /api/ask/description | To get description for given title |
-| POST | /api/ask/tags | To get tags for given title |
+| POST | /api/ask/keywords | To get keywords for given title |
 | POST | /api/ask/toc | To generated TOC for given title |
 | POST | /api/ask/images | To generated images for given title |
 
