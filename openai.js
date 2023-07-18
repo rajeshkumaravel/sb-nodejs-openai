@@ -44,7 +44,7 @@ const ask = async (query) => {
   console.log('Query : ', query); // TODO: log!
   try {
     const completion = await openai.createCompletion({
-      model: 'text-davinci-002',
+      model: 'text-davinci-003',
       prompt: query,
       max_tokens: 2000,
       temperature: 0.5

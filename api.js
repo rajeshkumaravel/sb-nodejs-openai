@@ -155,7 +155,7 @@ router.post('/fetch/keywords', async (req, res) => {
         } else {
           return res.status(200).json({
             success: true,
-            message: String(answer).replace(/\n/g, ' ').trim(),
+            message: (String(answer).replace(/\n/g, ' ').trim()).split(',').map(item=>item.trim()),
           });
         }
       } else {
