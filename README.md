@@ -2,6 +2,11 @@
 
 NodeJS wrapper to interact with OpenAI
 
+----
+
+<p align="center"><img src="./assets/terminal_code.gif" align="center"></p>
+
+
 ## License
 
 This project is licensed under the MIT License. See LICENSE for more information.
