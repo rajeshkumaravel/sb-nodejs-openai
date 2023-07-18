@@ -117,10 +117,10 @@ The following API endpoints are available:
 
 | HTTP Verbs | Endpoints | Action |
 | --- | --- | --- |
-| POST | /api/ask | To query with OpenAI |
-| POST | /api/ask/description | To get description for given title |
-| POST | /api/ask/keywords | To get keywords for given title |
-| POST | /api/ask/toc | To generated TOC for given title |
-| POST | /api/ask/images | To generated images for given title |
+| POST | /api/fetch | To query with OpenAI |
+| POST | /api/fetch/description | To get description for given title |
+| POST | /api/fetch/keywords | To get keywords for given title |
+| POST | /api/fetch/topics | To generated topics or table of contents for given title |
+| POST | /api/fetch/images | To generated images for given title |
 
 

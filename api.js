@@ -4,9 +4,9 @@ const { ask, image }  = require('./openai');
 
 /**
  * @swagger
- * /api/ask:
+ * /api/fetch:
  *   post:
- *     summary: Ask OpenAI
+ *     summary: Query OpenAI
  *     tags:
  *       - Course
  *     requestBody:
@@ -15,7 +15,7 @@ const { ask, image }  = require('./openai');
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/AskRequest'
+ *             $ref: '#/components/schemas/FetchRequest'
  *     responses:
  *       201:
  *         description: Response generated successfully
@@ -27,13 +27,13 @@ const { ask, image }  = require('./openai');
  *         description: Error while fetching data
  * components:
  *   schemas:
- *     AskRequest:
+ *     FetchRequest:
  *       type: object
  *       properties:
  *         query:
  *           type: string
  */
-router.post('/ask', async (req, res) => {
+router.post('/fetch', async (req, res) => {
   try {
     if (!req['body']['query']) return res.status(400).json({ error: 'Query is mandatory' });
     let { query } = req.body;
@@ -59,7 +59,7 @@ router.post('/ask', async (req, res) => {
 
 /**
  * @swagger
- * /api/ask/description:
+ * /api/fetch/description:
  *   post:
  *     summary: Generate description for given title
  *     tags:
@@ -70,7 +70,7 @@ router.post('/ask', async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/AskDescriptionRequest'
+ *             $ref: '#/components/schemas/FetchDescriptionRequest'
  *     responses:
  *       201:
  *         description: Description generated successfully
@@ -82,13 +82,13 @@ router.post('/ask', async (req, res) => {
  *         description: Error while fetching data
  * components:
  *   schemas:
- *     AskDescriptionRequest:
+ *     FetchDescriptionRequest:
  *       type: object
  *       properties:
  *         query:
  *           type: string
  */
-router.post('/ask/description', async (req, res) => {
+router.post('/fetch/description', async (req, res) => {
   if (!req['body']['query']) return res.status(400).json({ error: 'Query is mandatory' });
   let { query } = req.body;
   query = 'generate brief description on ' + query;
@@ -110,7 +110,7 @@ router.post('/ask/description', async (req, res) => {
 
 /**
  * @swagger
- * /api/ask/keywords:
+ * /api/fetch/keywords:
  *   post:
  *     summary: Generate keywords for given title
  *     tags:
@@ -121,7 +121,7 @@ router.post('/ask/description', async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/AskKeywordsRequest'
+ *             $ref: '#/components/schemas/FetchKeywordsRequest'
  *     responses:
  *       201:
  *         description: Tags generated successfully
@@ -133,13 +133,13 @@ router.post('/ask/description', async (req, res) => {
  *         description: Error while fetching data
  * components:
  *   schemas:
- *     AskKeywordsRequest:
+ *     FetchKeywordsRequest:
  *       type: object
  *       properties:
  *         query:
  *           type: string
  */
-router.post('/ask/keywords', async (req, res) => {
+router.post('/fetch/keywords', async (req, res) => {
   if (!req['body']['query']) return res.status(400).json({ error: 'Query is mandatory' });
   let { query } = req.body;
   query = 'generate comma separated keywords for topic ' + query;
@@ -162,9 +162,9 @@ router.post('/ask/keywords', async (req, res) => {
 
 /**
  * @swagger
- * /api/ask/toc:
+ * /api/fetch/topics:
  *   post:
- *     summary: Generate toc for given title
+ *     summary: Generate topics (TOC) for given title
  *     tags:
  *       - Course
  *     requestBody:
@@ -173,7 +173,7 @@ router.post('/ask/keywords', async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/AskTOCRequest'
+ *             $ref: '#/components/schemas/FetchTOCRequest'
  *     responses:
  *       201:
  *         description: TOC generated successfully
@@ -185,13 +185,13 @@ router.post('/ask/keywords', async (req, res) => {
  *         description: Error while fetching data
  * components:
  *   schemas:
- *     AskTOCRequest:
+ *     FetchTOCRequest:
  *       type: object
  *       properties:
  *         query:
  *           type: string
  */
-router.post('/ask/toc', async (req, res) => {
+router.post('/fetch/topics', async (req, res) => {
   if (!req['body']['query']) return res.status(400).json({ error: 'Query is mandatory' });
   let { query } = req.body;
   query = 'generate chapter titles for textbook ' + query + ' in the form of ordered list using number format';
@@ -228,7 +228,7 @@ router.post('/ask/toc', async (req, res) => {
 
 /**
  * @swagger
- * /api/ask/images:
+ * /api/fetch/images:
  *   post:
  *     summary: Generate image for given prompt
  *     tags:
@@ -239,7 +239,7 @@ router.post('/ask/toc', async (req, res) => {
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/AskImageRequest'
+ *             $ref: '#/components/schemas/FetchImageRequest'
  *     responses:
  *       201:
  *         description: Image generated successfully
@@ -251,16 +251,16 @@ router.post('/ask/toc', async (req, res) => {
  *         description: Error while fetching data
  * components:
  *   schemas:
- *     AskImageRequest:
+ *     FetchImageRequest:
  *       type: object
  *       properties:
  *         query:
  *           type: string
  */
-router.post('/ask/images', async (req, res) => {
+router.post('/fetch/images', async (req, res) => {
   if (!req['body']['query']) return res.status(400).json({ error: 'Query is mandatory' });
   let { query } = req.body;
-  query = 'can you generate cover image for english article about ' + query;
+  query = 'cover of a ' + query;
   await image(query)
     .then((answer) => {
       if (answer) {
