@@ -120,7 +120,7 @@ The following API endpoints are available:
 | POST | /api/fetch | To query with OpenAI |
 | POST | /api/fetch/description | To get description for given title |
 | POST | /api/fetch/keywords | To get keywords for given title |
-| POST | /api/fetch/topics | To generated topics or table of contents for given title |
-| POST | /api/fetch/images | To generated images for given title |
+| POST | /api/fetch/topics | To generate topics or table of contents for given title |
+| POST | /api/fetch/images | To generate images for given title |
 
 
