@@ -95,10 +95,14 @@ router.post('/fetch/description', async (req, res) => {
   await ask(query)
     .then((answer) => {
       if (answer) {
-        return res.status(200).json({
-          success: true,
-          message: String(answer).replace(/\n/g, ' ').trim(),
-        });
+        if (answer?.error) {
+          res.status(503).json({ error: answer?.error || 'Something went wrong, please try agin later' });
+        } else {
+          return res.status(200).json({
+            success: true,
+            message: String(answer).replace(/\n/g, ' ').trim(),
+          });
+        }
       } else {
         res.status(503).json({ error: 'Something went wrong, please try agin later' });
       }
@@ -146,10 +150,14 @@ router.post('/fetch/keywords', async (req, res) => {
   await ask(query)
     .then((answer) => {
       if (answer) {
-        return res.status(200).json({
-          success: true,
-          message: String(answer).replace(/\n/g, ' ').trim().split(','),
-        });
+        if (answer?.error) {
+          res.status(503).json({ error: answer?.error || 'Something went wrong, please try agin later' });
+        } else {
+          return res.status(200).json({
+            success: true,
+            message: String(answer).replace(/\n/g, ' ').trim(),
+          });
+        }
       } else {
         res.status(503).json({ error: 'Something went wrong, please try agin later' });
       }
@@ -198,23 +206,27 @@ router.post('/fetch/topics', async (req, res) => {
   await ask(query)
     .then((answer) => {
       if (answer) {
-        if (typeof answer == 'string' && answer.match(/\n\n/g).length == 1) {
-          return res.status(200).json({
-            success: true,
-            message: answer.toString().split('\n').splice(2),
-          });
-        } else if (typeof answer == 'string' && answer.match(/\n\n/g).length > 1) {
-          return res.status(200).json({
-            success: true,
-            message: answer.toString().split('\n\n').splice(1),
-          });
-        } else if (typeof answer == 'string') {
-          return res.status(200).json({
-            success: true,
-            message: String(answer).replace(/\n/g, ' ').trim().split(','),
-          });
+        if (answer?.error) {
+          res.status(503).json({ error: answer?.error || 'Something went wrong, please try agin later' });
         } else {
-          res.status(503).json({ error: 'Something went wrong, please try agin later', message: answer?.error || '' });
+          if (typeof answer == 'string' && answer.match(/\n\n/g).length == 1) {
+            return res.status(200).json({
+              success: true,
+              message: answer.toString().split('\n').splice(2),
+            });
+          } else if (typeof answer == 'string' && answer.match(/\n\n/g).length > 1) {
+            return res.status(200).json({
+              success: true,
+              message: answer.toString().split('\n\n').splice(1),
+            });
+          } else if (typeof answer == 'string') {
+            return res.status(200).json({
+              success: true,
+              message: String(answer).replace(/\n/g, ' ').trim().split(','),
+            });
+          } else {
+            res.status(503).json({ error: 'Something went wrong, please try agin later', message: answer?.error || '' });
+          }
         }
       } else {
         res.status(503).json({ error: 'Something went wrong, please try agin later' });
